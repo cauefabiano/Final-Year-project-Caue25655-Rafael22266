@@ -29,7 +29,7 @@ function AddPub() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white">
+    <div className="flex items-center justify-center min-h-screen  bg-gradient-to-br from-black via-gray-900 to-gray-800 mt-10">
       <div className="bg-gray-800 p-10 rounded-lg shadow-lg w-full max-w-md border border-yellow-400">
         <h1 className="text-4xl font-bold text-center mb-6 text-yellow-400">🍺 Add a Pub</h1>
 

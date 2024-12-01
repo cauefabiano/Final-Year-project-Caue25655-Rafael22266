@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // ✅ Import useNavigate
+import { useNavigate } from "react-router-dom"; //  Import useNavigate
 import { loginUser } from "../api";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate(); // ✅ Navigation Hook
+  const navigate = useNavigate(); //  Navigation Hook
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,10 +14,14 @@ function Login() {
 
     try {
       const { data } = await loginUser({ email, password });
-      localStorage.setItem("token", data.token); // ✅ Save token
+
+      //  Save token and user info to localStorage
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+
       alert("Login successful!");
 
-      // ✅ Redirect to Home page after login
+      //  Redirect to Home page after login
       navigate("/");
     } catch (err) {
       setError("❌ Error: " + (err.response?.data?.message || "Something went wrong."));
@@ -25,7 +29,7 @@ function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">
+    <div className="flex items-center justify-center min-h-screen ">
       <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md">
         <h1 className="text-3xl font-bold text-center mb-6">Login</h1>
 

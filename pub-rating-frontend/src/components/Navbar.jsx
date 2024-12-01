@@ -1,109 +1,87 @@
 import { Link, useNavigate } from "react-router-dom";
-import { LogOut, User, PlusCircle } from "lucide-react";
-import logo from "/src/assets/logo.jpeg"; // ✅ Ensure correct path
+import logo from "../assets/pintpal-logo.png";
+import { Home, PlusCircle, Info, LogIn, LogOut, User } from "lucide-react";
 
 function Navbar() {
   const navigate = useNavigate();
-  const isLoggedIn = !!localStorage.getItem("token");
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = localStorage.getItem("token");
 
   const handleLogout = () => {
+    localStorage.removeItem("user");
     localStorage.removeItem("token");
-    alert("Logged out successfully!");
-    navigate("/");
+    navigate("/login");
   };
 
   return (
-    <nav style={{
-      position: "fixed",
-      top: 0,
-      left: 0,
-      width: "100%",
-      backgroundColor: "#1A202C",
-      padding: "10px 0",
-      boxShadow: "0px 4px 10px rgba(0,0,0,0.2)",
-      zIndex: 1000
-    }}>
-      <div style={{
-        width: "100%",
-        height: "60px",
-        display: "grid",
-        gridTemplateColumns: "1fr auto 1fr", // ✅ Keeps left, center, and right aligned
-        alignItems: "center",
-        padding: "0 10px"
-      }}>
-
-        {/* ✅ Logo and Site Name (Left) */}
-        <div style={{ justifySelf: "start", display: "flex", alignItems: "center", gap: "10px" }}>
-          <Link to="/" style={{ textDecoration: "none", color: "white", fontWeight: "bold", fontSize: "16px" }}>
-            <img 
-              src={logo} 
-              alt="PubRatings Logo" 
-              style={{
-                width: "60px",  // ✅ Smaller logo for mobile
-                height: "auto",
-                objectFit: "contain",
-                display: "inline-block"
-              }} 
-            />
-            <span style={{ marginLeft: "5px", color: "#FFC700", fontSize: "14px" }}>PubRatings</span>
-          </Link>
+    <nav className="bg-gray-800 border-b border-yellow-500 sticky top-0 z-50 shadow-lg">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
+        {/* Logo + Nome */}
+        <div className="flex items-center space-x-3">
+          <img
+            src={logo}
+            alt="Pint Pal Logo"
+            className="w-10 h-10 rounded-full border border-yellow-500"
+          />
+          <span className="text-3xl font-extrabold text-yellow-500 tracking-wide">
+            Pint Pal
+          </span>
         </div>
 
-        {/* ✅ Navigation Links (Centered) */}
-        <div style={{ textAlign: "center", display: "flex", gap: "12px" }}>
-          <Link to="/" style={{ color: "white", textDecoration: "none", fontSize: "14px" }}>
-            Home
+        {/* Menu */}
+        <div className="flex items-center space-x-6">
+          <Link
+            to="/"
+            className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-4 py-2 rounded-lg flex items-center space-x-2"
+          >
+            <Home size={18} />
+            <span>Home</span>
           </Link>
-          {isLoggedIn && (
-            <Link to="/add-pub" style={{ color: "white", textDecoration: "none", fontSize: "14px", display: "flex", alignItems: "center", gap: "5px" }}>
-              <PlusCircle style={{ width: "14px", height: "14px", verticalAlign: "middle" }} /> Add Pub
+          <Link
+            to="/add-pub"
+            className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-4 py-2 rounded-lg flex items-center space-x-2"
+          >
+            <PlusCircle size={18} />
+            <span>Add Pub</span>
+          </Link>
+          <Link
+            to="/about-us"
+            className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-4 py-2 rounded-lg flex items-center space-x-2"
+          >
+            <Info size={18} />
+            <span>About Us</span>
+          </Link>
+
+          {/* Profile Link */}
+          {token ? (
+            <Link
+              to="/profile"
+              className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-4 py-2 rounded-lg flex items-center space-x-2"
+            >
+              <User size={18} />
+              <span>Profile</span>
             </Link>
-          )}
-        </div>
+          ) : null}
 
-        {/* ✅ User Authentication Buttons (Right) */}
-        <div style={{ justifySelf: "end", display: "flex", gap: "8px" }}>
-          {isLoggedIn ? (
-            <>
-              <Link to="/profile" style={{
-                backgroundColor: "#6B46C1",
-                color: "white",
-                padding: "6px 10px",
-                borderRadius: "6px",
-                fontSize: "12px",
-                textDecoration: "none"
-              }}>
-                <User style={{ width: "12px", height: "12px", verticalAlign: "middle" }} /> Profile
-              </Link>
-              <button
-                onClick={handleLogout}
-                style={{
-                  backgroundColor: "#E53E3E",
-                  color: "white",
-                  padding: "6px 10px",
-                  borderRadius: "6px",
-                  fontSize: "12px",
-                  border: "none",
-                  cursor: "pointer"
-                }}
-              >
-                <LogOut style={{ width: "12px", height: "12px", verticalAlign: "middle" }} /> Logout
-              </button>
-            </>
+          {/* Logout/ Login Button */}
+          {token ? (
+            <button
+              onClick={handleLogout}
+              className="bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded-lg flex items-center space-x-2"
+            >
+              <LogOut size={18} />
+              <span>Logout</span>
+            </button>
           ) : (
-            <Link to="/login" style={{
-              backgroundColor: "#3182CE",
-              color: "white",
-              padding: "6px 10px",
-              borderRadius: "6px",
-              fontSize: "12px",
-              textDecoration: "none"
-            }}>
-              Login
+            <Link
+              to="/login"
+              className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-4 py-2 rounded-lg flex items-center space-x-2"
+            >
+              <LogIn size={18} />
+              <span>Login</span>
             </Link>
           )}
         </div>
-
       </div>
     </nav>
   );

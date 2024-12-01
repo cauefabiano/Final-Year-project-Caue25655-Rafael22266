@@ -10,4 +10,7 @@ export default defineConfig({
     outDir: "build", // Ensure this is where React outputs files
   },
   base: "/", // Ensure correct base URL
+  css: {
+    postcss: './postcss.config.js',
+  },
 });
