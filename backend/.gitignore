@@ -1,0 +1,13 @@
+# Node modules
+node_modules/
+
+# Environment variables
+.env
+
+# Build output (if any)
+build/
+dist/
+
+# Logs
+npm-debug.log*
+create-history.bat
