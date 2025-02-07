@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:5000/api"; // ✅ Make sure backend is running
+const API_BASE_URL = "https://pub-rating.onrender.com/api"; // ✅ Make sure backend is running
 
 // ✅ Register a user
 export const registerUser = async (userData) => {
