@@ -1,12 +1,14 @@
 import axios from "axios";
 
-const API_BASE_URL = "https://pub-rating.onrender.com"; // ✅ Make sure backend is running
+const API_BASE_URL = "https://pub-rating.onrender.com/api"; // ✅ Fixed
 
 // ✅ Register a user
 export const registerUser = async (userData) => {
     return axios.post(`${API_BASE_URL}/users/register`, userData, {
       headers: { "Content-Type": "application/json" },
-    });  };
+    });
+};
+
 // ✅ Log in a user
 export const loginUser = async (userData) => {
   return axios.post(`${API_BASE_URL}/users/login`, userData, {
