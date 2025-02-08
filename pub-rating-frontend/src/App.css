@@ -23,12 +23,6 @@ html, body {
   background-color: #0A0A0A;
 }
 
-/* Viewport Meta Tag Equivalent Styles */
-@viewport {
-  width: device-width;
-  zoom: 1;
-}
-
 /* Responsive Typography */
 html {
   font-size: 16px;
@@ -87,10 +81,34 @@ html {
   }
 }
 
-/* Flexible Images */
+/* 🎯 Global Image Styling */
 img {
-  max-width: 100%;
+  max-width: 80%; /* ✅ Prevents oversized images */
   height: auto;
+  display: block;
+}
+
+/* 🎯 Logo Styling (Fixed) */
+.logo {
+  width: 50px;  /* ✅ Default size */
+  max-width: 50px; /* ✅ Prevents excessive stretching */
+  height: auto;
+  display: block;
+  margin: auto;
+  object-fit: contain;
+}
+
+/* Responsive Logo */
+@media screen and (max-width: 768px) {
+  .logo {
+    width: 50px; /* ✅ Smaller logo for tablets */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .logo {
+    width: 50px; /* ✅ Even smaller logo for mobile */
+  }
 }
 
 /* Scrollbar for Webkit Browsers */

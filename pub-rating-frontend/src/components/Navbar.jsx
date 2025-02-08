@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { LogOut, User, PlusCircle } from "lucide-react";
-import logo from "/src/assets/logo.jpeg"; // ✅ Fixed Import for `.jpeg`
+import logo from "/src/assets/logo.jpeg"; // ✅ Ensure correct path
 
 function Navbar() {
   const navigate = useNavigate();
@@ -13,44 +13,91 @@ function Navbar() {
   };
 
   return (
-    <nav className="bg-gradient-to-r from-gray-900 to-gray-800 p-4 shadow-md fixed top-0 w-full z-50">
-      <div className="container mx-auto flex justify-between items-center">
-        {/* ✅ Logo and Site Name */}
-        <Link to="/" className="flex items-center gap-2 text-white font-bold text-xl">
-          <img src={logo} alt="PubRatings Logo" className="w-5 h-5 rounded-md" /> {/* 🔥 Smaller Logo */}
-          <span className="text-yellow-400 hover:text-yellow-300 transition">PubRatings</span>
-        </Link>
+    <nav style={{
+      position: "fixed", // ✅ Sticks navbar to the top
+      top: 0,
+      left: 0,
+      width: "100%", 
+      backgroundColor: "#1A202C", // Dark Gray
+      padding: "10px 0",
+      boxShadow: "0px 4px 10px rgba(0,0,0,0.2)",
+      zIndex: 1000 // Ensures it stays on top
+    }}>
+      
+      {/* ✅ Main Layout (Keeps everything in a row) */}
+      <div style={{ width: "100%", height: "60px", position: "relative" }}>
+        
+        {/* ✅ Logo and Site Name (Left) */}
+        <div style={{ position: "absolute", left: "20px", top: "50%", transform: "translateY(-50%)" }}>
+          <Link to="/" style={{ textDecoration: "none", color: "white", fontWeight: "bold", fontSize: "20px" }}>
+            <img 
+              src={logo} 
+              alt="PubRatings Logo" 
+              style={{
+                width: "80px", // ✅ Keeping YOUR original size
+                height: "auto",
+                objectFit: "contain",
+                display: "inline-block",
+                verticalAlign: "middle",
+              }} 
+            />
+            <span style={{ marginLeft: "10px", color: "#FFC700" }}>PubRatings</span>
+          </Link>
+        </div>
 
-        {/* ✅ Navigation Links */}
-        <div className="flex space-x-6 text-white text-lg">
-          <Link to="/" className="hover:text-yellow-300 transition">Home</Link>
+        {/* ✅ Navigation Links (Centered) */}
+        <div style={{ position: "absolute", left: "50%", top: "50%", transform: "translate(-50%, -50%)", textAlign: "center" }}>
+          <Link to="/" style={{ margin: "0 15px", color: "white", textDecoration: "none", fontSize: "18px" }}>
+            Home
+          </Link>
           {isLoggedIn && (
-            <Link to="/add-pub" className="hover:text-yellow-300 transition flex items-center gap-1">
-              <PlusCircle className="w-5 h-5" /> Add Pub
+            <Link to="/add-pub" style={{ margin: "0 15px", color: "white", textDecoration: "none", fontSize: "18px" }}>
+              <PlusCircle style={{ width: "20px", height: "20px", verticalAlign: "middle" }} /> Add Pub
             </Link>
           )}
         </div>
 
-        {/* ✅ User Authentication Buttons */}
-        <div className="flex space-x-4">
+        {/* ✅ User Authentication Buttons (Right) */}
+        <div style={{ position: "absolute", right: "20px", top: "50%", transform: "translateY(-50%)" }}>
           {isLoggedIn ? (
             <>
-              <Link to="/profile" className="bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-lg text-white flex items-center gap-2 shadow-md">
-                <User className="w-5 h-5" /> Profile
+              <Link to="/profile" style={{
+                backgroundColor: "#6B46C1",
+                color: "white",
+                padding: "8px 16px",
+                borderRadius: "6px",
+                textDecoration: "none",
+                marginRight: "10px"
+              }}>
+                <User style={{ width: "16px", height: "16px", verticalAlign: "middle" }} /> Profile
               </Link>
               <button
                 onClick={handleLogout}
-                className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg text-white flex items-center gap-2 shadow-md"
+                style={{
+                  backgroundColor: "#E53E3E",
+                  color: "white",
+                  padding: "8px 16px",
+                  borderRadius: "6px",
+                  border: "none",
+                  cursor: "pointer"
+                }}
               >
-                <LogOut className="w-5 h-5" /> Logout
+                <LogOut style={{ width: "16px", height: "16px", verticalAlign: "middle" }} /> Logout
               </button>
             </>
           ) : (
-            <Link to="/login" className="bg-blue-500 hover:bg-blue-600 px-5 py-2 rounded-lg text-white shadow-md">
+            <Link to="/login" style={{
+              backgroundColor: "#3182CE",
+              color: "white",
+              padding: "8px 16px",
+              borderRadius: "6px",
+              textDecoration: "none"
+            }}>
               Login
             </Link>
           )}
         </div>
+
       </div>
     </nav>
   );
